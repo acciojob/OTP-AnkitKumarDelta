@@ -1,86 +1,68 @@
 <!DOCTYPE html>
-
 <html>
-
 <head>
-	<link rel="stylesheet" href="styles.css">
-	<style>
-		.container{
-			width:auto;
-			height:auto;
-			border:2px  solid black;
-			padding:30px;
-			text-align:center;
-		}
-		.code-container{
-			display:flex;
-			flex-wrap:wrap;
-			gap:35px;
-		}
-		.code{
-			width:50px;
-			height:50px;
-			text-align:center;
-			font-size:20px;
-		}
-	</style>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .container {
+      width: auto;
+      height: auto;
+      border: 2px solid black;
+      padding: 30px;
+      text-align: center;
+    }
+    .code-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 35px;
+      justify-content: center;
+    }
+    .code {
+      width: 50px;
+      height: 50px;
+      text-align: center;
+      font-size: 20px;
+    }
+  </style>
 </head>
-
 <body>
-	<!-- the entire body must be written by student -->
-	<div class="container">
-		<h1 id="verification_heading">Verify Your Account</h1>
-	<p id="verification_subtext">Pay attention to edge cases where backspace should focus on the previous field when there are no digits in the current field.</p>
+  <!-- the entire body must be written by student -->
+  <div class="container">
+    <h1 id="verification_heading">Verify Your Account</h1>
+    <p id="verification_subtext">
+      Pay attention to edge cases where backspace should focus on the previous field when there are no digits in the current field.
+    </p>
     <div class="code-container">
-	<input type="number" class="code code-1">
-	<input type="number" class="code  code-2">
-	<input type="number" class="code code-3">
-	<input type="number" class="code code-4">
-	<input type="number" class="code code-5">
-	<input type="number" class="code code-6">
-	</div>
-	</div>
-	
-	<script >
-		let codes = document.querySelectorAll("[class^='code-']");
+      <input type="number" id="code-1" class="code" />
+      <input type="number" id="code-2" class="code" />
+      <input type="number" id="code-3" class="code" />
+      <input type="number" id="code-4" class="code" />
+      <input type="number" id="code-5" class="code" />
+      <input type="number" id="code-6" class="code" />
+    </div>
+  </div>
 
-    codes.forEach((code) => {
-      // Forward movement (typing)
+  <script>
+    let codes = document.querySelectorAll(".code");
+
+    codes.forEach((code, idx) => {
+      // Move forward on input
       code.addEventListener("input", (e) => {
-        let j = -1;
-        for (let i = 0; i < codes.length; i++) {
-          if (codes[i] === code) {
-            j = i + 1;
-            break;
-          }
-        }
-        if (j !== -1 && j < codes.length && code.value !== "") {
-          codes[j].focus();
+        if (code.value !== "" && idx < codes.length - 1) {
+          codes[idx + 1].focus();
         }
       });
 
-      // Backward movement (backspace)
+      // Handle backspace
       code.addEventListener("keydown", (e) => {
-        if (e.key === "Backspace" && code.value === "") {
-          let j = -1;
-          for (let i = 0; i < codes.length; i++) {
-            if (codes[i] === code) {
-              j = i - 1;
-              break;
-            }
-          }
-          if (j !== -1 && j >= 0) {
-            codes[j].focus();
-            codes[j].value = ""; // delete previous digit
-          }
+        if (e.key === "Backspace" && code.value === "" && idx > 0) {
+          codes[idx - 1].focus();
+          codes[idx - 1].value = "";
         }
       });
     });
 
-    // Optional: focus first box on load
+    // Focus first input on page load
     codes[0].focus();
-</script>
-
+  </script>
 </body>
-
 </html>
