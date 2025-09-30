@@ -1,1 +1,37 @@
-/*  your css code here. If applicable */
+/* let codes = document.querySelectorAll(".code");
+
+    codes.forEach((code) => {
+      // Forward movement (typing)
+      code.addEventListener("input", (e) => {
+        let j = -1;
+        for (let i = 0; i < codes.length; i++) {
+          if (codes[i] === code) {
+            j = i + 1;
+            break;
+          }
+        }
+        if (j !== -1 && j < codes.length && code.value !== "") {
+          codes[j].focus();
+        }
+      });
+
+      // Backward movement (backspace)
+      code.addEventListener("keydown", (e) => {
+        if (e.key === "Backspace" && code.value === "") {
+          let j = -1;
+          for (let i = 0; i < codes.length; i++) {
+            if (codes[i] === code) {
+              j = i - 1;
+              break;
+            }
+          }
+          if (j !== -1 && j >= 0) {
+            codes[j].focus();
+            codes[j].value = ""; // delete previous digit
+          }
+        }
+      });
+    });
+
+    // Optional: focus first box on load
+    codes[0].focus(); */

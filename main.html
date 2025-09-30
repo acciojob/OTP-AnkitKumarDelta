@@ -4,11 +4,81 @@
 
 <head>
 	<link rel="stylesheet" href="styles.css">
+	<style>
+		.container{
+			width:auto;
+			height:auto;
+			border:2px  solid black;
+			padding:30px;
+			text-align:center;
+		}
+		.code-container{
+			display:flex;
+			flex-wrap:wrap;
+			gap:35px;
+		}
+		.code{
+			width:50px;
+			height:50px;
+			text-align:center;
+			font-size:20px;
+		}
+	</style>
 </head>
 
 <body>
 	<!-- the entire body must be written by student -->
-    <script type="text/javascript" src="./script.js">
+	<div class="container">
+		<h1 id="verification_heading">Verify Your Account</h1>
+	<p id="verification_subtext">Pay attention to edge cases where backspace should focus on the previous field when there are no digits in the current field.</p>
+    <div class="code-container">
+	<input type="number" class="code">
+	<input type="number" class="code">
+	<input type="number" class="code">
+	<input type="number" class="code">
+	<input type="number" class="code">
+	<input type="number" class="code">
+	</div>
+	</div>
+	
+	<script >
+		let codes = document.querySelectorAll(".code");
+
+    codes.forEach((code) => {
+      // Forward movement (typing)
+      code.addEventListener("input", (e) => {
+        let j = -1;
+        for (let i = 0; i < codes.length; i++) {
+          if (codes[i] === code) {
+            j = i + 1;
+            break;
+          }
+        }
+        if (j !== -1 && j < codes.length && code.value !== "") {
+          codes[j].focus();
+        }
+      });
+
+      // Backward movement (backspace)
+      code.addEventListener("keydown", (e) => {
+        if (e.key === "Backspace" && code.value === "") {
+          let j = -1;
+          for (let i = 0; i < codes.length; i++) {
+            if (codes[i] === code) {
+              j = i - 1;
+              break;
+            }
+          }
+          if (j !== -1 && j >= 0) {
+            codes[j].focus();
+            codes[j].value = ""; // delete previous digit
+          }
+        }
+      });
+    });
+
+    // Optional: focus first box on load
+    codes[0].focus();
 </script>
 
 </body>
